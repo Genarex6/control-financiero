@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Finora · Control financiero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="overrides.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">F</span><span>finora</span></div>
+    <div class="month">Resumen de <strong id="currentMonth"></strong></div>
+    <button class="export" onclick="downloadExcel()">⇩ Descargar Excel</button>
+  </header>
+  <main>
+    <section class="hero"><div><p class="eyebrow">TU DINERO, EN CLARO</p><h1>Hola, organiza tu<br><em>tranquilidad.</em></h1></div><p id="smartMessage" class="smart-message"></p></section>
+    <section class="stats">
+      <article class="stat income"><span>Presupuesto mensual</span><strong id="budgetText">S/ 0.00</strong><small id="reserveText">Reserva mínima: S/ 0.00</small></article>
+      <article class="stat spent"><span>Gastado este mes</span><strong id="spentText">S/ 0.00</strong><small id="spentDetail">0 movimientos</small></article>
+      <article class="stat available"><span>Disponible</span><strong id="availableText">S/ 0.00</strong><small id="availableDetail">Listo para usar</small></article>
+      <article class="stat debt-total"><span>Deuda pendiente</span><strong id="debtText">S/ 0.00</strong><small id="debtDetail">0 deudas activas</small></article>
+    </section>
+
+    <section class="grid dashboard-grid">
+      <article class="panel budget-panel"><div class="panel-title"><div><p class="eyebrow">PRESUPUESTO</p><h2>Ritmo de gasto</h2></div><span id="progressLabel" class="pill">0%</span></div><div class="big-progress"><div id="bar"></div></div><div class="budget-form"><label>Presupuesto<input id="budget" type="number" min="0" placeholder="Ej. 3500"></label><label>Reserva mínima<input id="reserve" type="number" min="0" placeholder="Ej. 500"></label><button onclick="saveBudget()">Actualizar</button></div></article>
+      <article class="panel chart-panel"><div class="panel-title"><div><p class="eyebrow">ANÁLISIS</p><h2>Gastos por categoría</h2></div></div><div id="categoryChart" class="category-chart"></div></article>
+    </section>
+
+    <section class="grid content-grid">
+      <article class="panel"><div class="panel-title"><div><p class="eyebrow">MOVIMIENTOS</p><h2>Nuevo gasto</h2></div></div><div class="expense-form"><input id="desc" placeholder="¿En qué gastaste?"><input id="amount" type="number" min="0" placeholder="Monto"><select id="category"><option>Alimentación</option><option>Transporte</option><option>Hogar</option><option>Salud</option><option>Ocio</option><option>Otros</option></select><button onclick="addExpense()">Agregar gasto</button></div><div id="expenses" class="expense-list"></div></article>
+      <article class="panel calendar-panel"><div class="panel-title"><div><p class="eyebrow">PRÓXIMOS PAGOS</p><h2>Calendario de vencimientos</h2></div></div><div id="calendar" class="calendar-list"></div></article>
+    </section>
+
+    <section class="panel debts-panel"><div class="panel-title"><div><p class="eyebrow">OBLIGACIONES</p><h2>Mis deudas</h2></div><button class="ghost" onclick="resetDebtForm()">+ Nueva deuda</button></div><div id="debtForm" class="debt-form"><input id="debtName" placeholder="Ej. Tarjeta Visa"><input id="debtAmount" type="number" min="0" placeholder="Monto total"><input id="debtDate" type="date"><button id="debtSubmit" onclick="addDebt()">Agregar deuda</button><button class="cancel hidden" id="cancelEdit" onclick="cancelEdit()">Cancelar</button></div><div id="debts" class="debt-cards"></div></section>
+
+    <section class="panel history-panel"><div class="panel-title"><div><p class="eyebrow">SEGUIMIENTO</p><h2>Historial de pagos</h2></div></div><div id="paymentHistory" class="history-list"></div></section>
+  </main>
+  <div id="paymentModal" class="modal-backdrop" aria-hidden="true">
+    <div class="payment-modal" role="dialog" aria-modal="true" aria-labelledby="paymentTitle">
+      <button class="modal-close" onclick="closePaymentModal()" aria-label="Cerrar">×</button>
+      <span class="modal-icon">↗</span>
+      <p class="eyebrow">REGISTRAR ABONO</p>
+      <h2 id="paymentTitle">Pago a deuda</h2>
+      <p id="paymentBalance" class="modal-balance"></p>
+      <label class="modal-label" for="paymentAmount">¿Cuánto deseas abonar?</label>
+      <div class="amount-input"><span>S/</span><input id="paymentAmount" type="number" min="0.01" step="0.01" placeholder="0.00"></div>
+      <p class="modal-note">El saldo se actualizará automáticamente.</p>
+      <div class="modal-actions"><button class="cancel" onclick="closePaymentModal()">Cancelar</button><button class="pay-btn" onclick="submitPayment()">Registrar pago</button></div>
+    </div>
+  </div>
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>

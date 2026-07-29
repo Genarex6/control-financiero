@@ -1,0 +1,17 @@
+/* El primer campo de “Nuevo gasto” conserva un ancho legible. */
+.expense-form #desc { flex: 1.35 1 220px; min-width: 220px; }
+.expense-form #amount { flex: .7 1 130px; min-width: 130px; }
+
+.modal-backdrop { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; padding: 20px; background: rgba(24, 34, 52, .48); opacity: 0; visibility: hidden; transition: opacity .2s, visibility .2s; }
+.modal-backdrop.open { opacity: 1; visibility: visible; }
+.payment-modal { position: relative; width: min(100%, 420px); padding: 30px; border-radius: 18px; background: var(--paper); box-shadow: 0 24px 65px rgba(20, 30, 46, .22); transform: translateY(10px) scale(.98); transition: transform .2s; }
+.modal-backdrop.open .payment-modal { transform: translateY(0) scale(1); }
+.modal-close { position: absolute; top: 14px; right: 16px; width: 30px; height: 30px; border-radius: 50%; background: #f0f2f5; color: var(--muted); font-size: 21px; line-height: 1; }
+.modal-icon { display: grid; place-items: center; width: 39px; height: 39px; margin-bottom: 14px; border-radius: 11px; background: #e7f4dd; color: #538b39; font-weight: 700; }
+.payment-modal h2 { margin: 0; font-family: Fraunces, serif; font-size: 25px; letter-spacing: -.8px; }
+.modal-balance { margin: 7px 0 23px; color: var(--muted); font-size: 14px; }
+.modal-label { display: block; margin-bottom: 8px; color: var(--ink); font-size: 13px; font-weight: 600; }
+.amount-input { display: flex; align-items: center; gap: 8px; padding: 0 13px; border: 1px solid #dfe4ea; border-radius: 9px; background: #fff; }
+.amount-input:focus-within { border-color: #91bd67; box-shadow: 0 0 0 3px #edf6e7; }
+.amount-input span { color: #718096; font-weight: 700; }.amount-input input { border: 0; box-shadow: none !important; padding-left: 0; font-size: 21px; font-weight: 700; }
+.modal-note { margin: 10px 0 22px; color: var(--muted); font-size: 12px; }.modal-actions { display: flex; justify-content: flex-end; gap: 9px; }.modal-actions .cancel { padding: 10px 15px; }.modal-actions .pay-btn { padding: 10px 15px; }
